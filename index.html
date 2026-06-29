@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>반짝반짝 나의 여름 목표 설계도</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- html2canvas for downloading card as image -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <!-- SweetAlert2 for beautiful custom modals (Replaces browser alerts) -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Google Fonts for Cute and Modern look -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Gothic+Coding&family=Nunito:wght@400;700;900&family=Nanum+Pen+Script&family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Gowun Dodum', sans-serif;
+      background-color: #f7f9fc;
+    }
+    .font-cute {
+      font-family: 'Gaegu', cursive;
+    }
+    .font-hand {
+      font-family: 'Nanum Pen Script', cursive;
+    }
+    /* Custom transition effects */
+    .fade-in {
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Card design support */
+    .card-border-dashed {
+      background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='24' ry='24' stroke='%23FBCFE8FF' stroke-width='4' stroke-dasharray='10%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between text-gray-800">
+
+  <!-- Header Banner -->
+  <header class="bg-gradient-to-r from-pink-300 via-amber-200 to-sky-300 py-8 px-4 shadow-md text-center relative overflow-hidden">
+    <!-- Decorative Floating Elements -->
+    <div class="absolute top-2 left-6 text-pink-400 opacity-60 animate-bounce" style="animation-duration: 3s;"><i class="fa-solid fa-star text-3xl"></i></div>
+    <div class="absolute bottom-2 right-10 text-sky-400 opacity-60 animate-bounce" style="animation-duration: 4s;"><i class="fa-solid fa-umbrella-beach text-4xl"></i></div>
+    <div class="absolute top-4 right-1/4 text-yellow-400 opacity-50 animate-pulse"><i class="fa-solid fa-sun text-5xl"></i></div>
+    
+    <div class="max-w-3xl mx-auto relative z-10">
+      <span class="inline-block bg-white/90 text-pink-600 font-extrabold px-6 py-2 rounded-full text-sm md:text-base mb-3 shadow-md font-cute tracking-wide border border-pink-100">
+        🌞 담임쌤과 함께하는 긍정적 행동지원 프로그램
+      </span>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-slate-800 tracking-tight font-cute mb-3">
+        나의 여름 목표 설계도 🗺️
+      </h1>
+      <p class="text-slate-700 text-sm md:text-lg font-bold leading-relaxed opacity-90 max-w-2xl mx-auto">
+        1학기를 멋지게 마무리하고, 가슴 설레는 여름방학 목표를 디자인해봐요!
+      </p>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="flex-grow max-w-3xl w-full mx-auto px-4 py-8">
+    
+    <!-- Student Information & Intro Header (Always Visible at Top of Steps) -->
+    <div class="bg-white rounded-2xl p-5 shadow-sm mb-6 border border-slate-100 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-500">
+          <i class="fa-solid fa-user-graduate text-lg"></i>
+        </div>
+        <div>
+          <h3 class="font-bold text-slate-700 text-sm">작성자 정보</h3>
+          <p class="text-xs text-slate-400">학번과 이름을 먼저 입력해주세요!</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 w-full sm:w-auto">
+        <input type="text" id="student-id" placeholder="예: 10101" 
+               class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm w-1/2 sm:w-40 focus:outline-none focus:ring-2 focus:ring-pink-300 transition-all">
+        <input type="text" id="student-name" placeholder="이름 입력" 
+               class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm w-1/2 sm:w-32 focus:outline-none focus:ring-2 focus:ring-pink-300 transition-all">
+      </div>
+    </div>
+
+    <!-- Step Progress Tracker -->
+    <div class="mb-8">
+      <div class="flex items-center justify-between text-xs font-bold text-slate-400 px-1 mb-2">
+        <span id="progress-text" class="text-pink-500">진행률 20%</span>
+      </div>
+      <!-- Progress Bar -->
+      <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
+        <div id="progress-bar" class="bg-gradient-to-r from-pink-400 via-amber-300 to-sky-400 h-full w-[20%] transition-all duration-500"></div>
+      </div>
+      <!-- Step Nodes -->
+      <div class="grid grid-cols-4 gap-1 mt-3">
+        <button onclick="goToStep(1)" id="btn-nav-1" class="text-center py-2 px-1 rounded-xl text-xs font-bold bg-pink-100 text-pink-700 border-2 border-pink-300 transition-all">
+          <div class="hidden md:block">STEP 1</div>
+          <div class="text-[10px] md:text-xs">1학기 회고</div>
+        </button>
+        <button onclick="goToStep(2)" id="btn-nav-2" class="text-center py-2 px-1 rounded-xl text-xs font-bold bg-slate-100 text-slate-500 transition-all">
+          <div class="hidden md:block">STEP 2</div>
+          <div class="text-[10px] md:text-xs">SMART 목표</div>
+        </button>
+        <button onclick="goToStep(3)" id="btn-nav-3" class="text-center py-2 px-1 rounded-xl text-xs font-bold bg-slate-100 text-slate-500 transition-all">
+          <div class="hidden md:block">STEP 3</div>
+          <div class="text-[10px] md:text-xs">짝꿍과 나누기</div>
+        </button>
+        <button onclick="goToStep(4)" id="btn-nav-4" class="text-center py-2 px-1 rounded-xl text-xs font-bold bg-slate-100 text-slate-500 transition-all">
+          <div class="hidden md:block">STEP 4</div>
+          <div class="text-[10px] md:text-xs">목표 카드 완성</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Content Sections (Steps) -->
+    
+    <!-- ================= STEP 1: 1학기 회고 ================= -->
+    <div id="step-1" class="step-container fade-in">
+      <div class="bg-white rounded-3xl p-6 md:p-8 shadow-md border border-slate-100">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-14 h-14 rounded-2xl bg-pink-100 flex items-center justify-center text-pink-500 shrink-0">
+            <i class="fa-solid fa-heart text-2xl"></i>
+          </div>
+          <div>
+            <span class="text-sm font-black text-pink-500 tracking-wider">STEP 1. 돌아보기</span>
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate-800 tracking-tight leading-tight">나의 1학기를 솔직하게 돌아봐요</h2>
+          </div>
+        </div>
+
+        <p class="text-sm md:text-base text-slate-500 mb-6 leading-relaxed">
+          여름방학 계획을 멋지게 세우기 위해, 먼저 지나온 1학기 학교 생활을 한 걸음 물러서서 생각해보는 시간이에요. 아래 질문에 나의 솔직한 생각을 적어봅시다.
+        </p>
+
+        <!-- Input Fields -->
+        <div class="space-y-6">
+          <!-- 잘했던 것 -->
+          <div>
+            <label class="block text-base md:text-lg font-bold text-slate-700 mb-2.5 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+              👍 1학기 동안 스스로 "가장 잘했다"고 느끼는 점은 무엇인가요?
+            </label>
+            <textarea id="step1-good" rows="3" placeholder="예: 매일 지각하지 않고 등교했다, 친구들과 싸우지 않고 사이좋게 지냈다, 수학 성적이 올랐다 등..." 
+                      class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl p-4 text-sm focus:outline-none focus:border-emerald-300 focus:bg-white transition-all resize-none"></textarea>
+          </div>
+
+          <!-- 아쉬웠던 것 -->
+          <div>
+            <label class="block text-base md:text-lg font-bold text-slate-700 mb-2.5 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span>
+              😢 조금 더 잘할 수 있었는데 "아쉬웠던" 점은 무엇인가요?
+            </label>
+            <textarea id="step1-bad" rows="3" placeholder="예: 밤늦게 폰 보느라 아침에 피곤했다, 수행평가 기간에 미리 준비하지 못해 벼락치기를 했다 등..." 
+                      class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl p-4 text-sm focus:outline-none focus:border-rose-300 focus:bg-white transition-all resize-none"></textarea>
+          </div>
+        </div>
+
+        <!-- Keyword Helper (추천 키워드) -->
+        <div class="mt-8 pt-6 border-t border-slate-100">
+          <h4 class="text-xs font-bold text-slate-500 mb-3 flex items-center gap-1.5">
+            <i class="fa-solid fa-circle-question text-amber-500"></i>
+            무엇을 적을지 막막한 친구들을 위한 꿀 키워드 팁! (클릭하면 자동 적용돼요)
+          </h4>
+          <div class="flex flex-wrap gap-2">
+            <span onclick="addKeyword('good', '성실한 학교 등교 및 무단 결석 없음')" class="cursor-pointer bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs px-3 py-1.5 rounded-full transition-all border border-emerald-100">😊 성실한 등교</span>
+            <span onclick="addKeyword('good', '수업 시간에 선생님 말씀 경청하기')" class="cursor-pointer bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs px-3 py-1.5 rounded-full transition-all border border-emerald-100">✍️ 수업 경청</span>
+            <span onclick="addKeyword('good', '새로운 친구들을 사귀고 잘 어울린 것')" class="cursor-pointer bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs px-3 py-1.5 rounded-full transition-all border border-emerald-100">🤝 친구 관계</span>
+            <span onclick="addKeyword('good', '모둠 활동에서 내 역할을 다한 것')" class="cursor-pointer bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs px-3 py-1.5 rounded-full transition-all border border-emerald-100">🔥 모둠 협동</span>
+            <span onclick="addKeyword('good', '성실하게 일찍 자고 규칙적으로 기상한 것')" class="cursor-pointer bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs px-3 py-1.5 rounded-full transition-all border border-emerald-100">🛌 규칙적 수면</span>
+            <span onclick="addKeyword('bad', '유튜브나 폰 보느라 수면 시간 부족했던 것')" class="cursor-pointer bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs px-3 py-1.5 rounded-full transition-all border border-rose-100">📱 폰 사용 줄이기</span>
+            <span onclick="addKeyword('bad', '공부나 운동을 꾸준히 실천하지 못한 것')" class="cursor-pointer bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs px-3 py-1.5 rounded-full transition-all border border-rose-100">🏃 운동/공부 미루기</span>
+            <span onclick="addKeyword('bad', '독서 활동을 생각보다 많이 하지 못한 것')" class="cursor-pointer bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs px-3 py-1.5 rounded-full transition-all border border-rose-100">📚 독서 부족</span>
+            <span onclick="addKeyword('bad', '예민하게 굴어 가족이나 친구에게 짜증 낸 것')" class="cursor-pointer bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs px-3 py-1.5 rounded-full transition-all border border-rose-100">💭 감정 조절</span>
+            <span onclick="addKeyword('bad', '패스트푸드를 자주 먹고 식사를 불규칙하게 한 것')" class="cursor-pointer bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs px-3 py-1.5 rounded-full transition-all border border-rose-100">🍕 편식과 야식</span>
+          </div>
+        </div>
+
+        <!-- Next Button -->
+        <div class="mt-8 flex justify-end">
+          <button onclick="goToStep(2)" class="bg-gradient-to-r from-pink-400 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white font-bold px-6 py-3 rounded-2xl shadow-md shadow-pink-100 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+            다음 단계로 (SMART 목표 세우기) <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ================= STEP 2: SMART 목표 세우기 ================= -->
+    <div id="step-2" class="step-container hidden fade-in">
+      <div class="bg-white rounded-3xl p-6 md:p-8 shadow-md border border-slate-100">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-14 h-14 rounded-2xl bg-amber-100 flex items-center justify-center text-amber-500 shrink-0">
+            <i class="fa-solid fa-lightbulb text-2xl"></i>
+          </div>
+          <div>
+            <span class="text-sm font-black text-amber-500 tracking-wider">STEP 2. SMART 목표</span>
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate-800 tracking-tight leading-tight">여름방학 스마트한 목표를 정해요</h2>
+          </div>
+        </div>
+
+        <p class="text-sm md:text-base text-slate-500 mb-6 leading-relaxed">
+          목표는 구체적이고 실천 가능할 때 힘을 발휘해요! 똑똑하게 목표를 세우는 <strong class="text-pink-500">SMART 원칙</strong>에 맞춰 단 하나의 확실한 방학 목표를 구성해 봅시다. <span class="text-amber-600 font-bold">(모든 빈칸을 채워주세요!)</span>
+        </p>
+
+        <!-- SMART Input Items -->
+        <div class="space-y-6">
+          
+          <!-- S: Specific -->
+          <div class="bg-amber-50/40 border border-amber-100 rounded-2xl p-4 md:p-5">
+            <div class="flex items-start gap-3">
+              <span class="w-8 h-8 rounded-xl bg-amber-400 text-white flex items-center justify-center font-extrabold font-cute text-lg shrink-0">S</span>
+              <div class="w-full">
+                <label class="block text-sm md:text-base font-bold text-slate-800 mb-1">
+                  Specific <span class="text-amber-600 font-medium">(구체적으로 무엇을 할 건가요? - 필수)</span>
+                </label>
+                <p class="text-xs text-slate-400 mb-2">단순히 '운동하기'보다는 '아침 줄넘기 하기'처럼 구체적으로 적어봐요.</p>
+                <input type="text" id="smart-s" placeholder="예) 매일 아침 공원에서 줄넘기 500개씩 하기" 
+                       class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300">
+              </div>
+            </div>
+          </div>
+
+          <!-- M: Measurable -->
+          <div class="bg-sky-50/40 border border-sky-100 rounded-2xl p-4 md:p-5">
+            <div class="flex items-start gap-3">
+              <span class="w-8 h-8 rounded-xl bg-sky-400 text-white flex items-center justify-center font-extrabold font-cute text-lg shrink-0">M</span>
+              <div class="w-full">
+                <label class="block text-sm md:text-base font-bold text-slate-800 mb-1">
+                  Measurable <span class="text-sky-600 font-medium">(성공 여부를 어떻게 측정할 수 있나요? - 필수)</span>
+                </label>
+                <p class="text-xs text-slate-400 mb-2">달성했는지 확인할 수 있게 횟수나 시간 등 숫자를 넣어 표시해봐요.</p>
+                <input type="text" id="smart-m" placeholder="예) 주 5회 이상 실천하고 달력에 스티커 붙여서 80% 채우기" 
+                       class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-sky-300">
+              </div>
+            </div>
+          </div>
+
+          <!-- A: Achievable -->
+          <div class="bg-emerald-50/40 border border-emerald-100 rounded-2xl p-4 md:p-5">
+            <div class="flex items-start gap-3">
+              <span class="w-8 h-8 rounded-xl bg-emerald-400 text-white flex items-center justify-center font-extrabold font-cute text-lg shrink-0">A</span>
+              <div class="w-full">
+                <label class="block text-sm md:text-base font-bold text-slate-800 mb-1">
+                  Achievable <span class="text-emerald-600 font-medium">(현실적으로 달성 가능한 목표인가요? - 필수)</span>
+                </label>
+                <p class="text-xs text-slate-400 mb-2">너무 거창하기보다는 나의 현 상황에서 노력하면 충분히 이룰 수 있는 난이도인가요?</p>
+                <input type="text" id="smart-a" placeholder="예) 학기 중에 이미 가볍게 해봤던 일이라 매일 30분 투자는 충분히 가능함!" 
+                       class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300">
+              </div>
+            </div>
+          </div>
+
+          <!-- R: Relevant -->
+          <div class="bg-pink-50/40 border border-pink-100 rounded-2xl p-4 md:p-5">
+            <div class="flex items-start gap-3">
+              <span class="w-8 h-8 rounded-xl bg-pink-400 text-white flex items-center justify-center font-extrabold font-cute text-lg shrink-0">R</span>
+              <div class="w-full">
+                <label class="block text-sm md:text-base font-bold text-slate-800 mb-1">
+                  Relevant <span class="text-pink-600 font-medium">(나에게 왜 이 목표가 중요한가요? - 필수)</span>
+                </label>
+                <p class="text-xs text-slate-400 mb-2">나의 꿈, 건강, 기분, 또는 아쉬웠던 1학기 회고와 어떤 연결점이 있나요?</p>
+                <input type="text" id="smart-r" placeholder="예) 여름방학 동안 체력을 기르고 2학기 체육시간에 셔틀런 기록을 단축하고 싶어서" 
+                       class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-300">
+              </div>
+            </div>
+          </div>
+
+          <!-- T: Time-bound (달력 선택 방식) -->
+          <div class="bg-purple-50/40 border border-purple-100 rounded-2xl p-4 md:p-5">
+            <div class="flex items-start gap-3">
+              <span class="w-8 h-8 rounded-xl bg-purple-400 text-white flex items-center justify-center font-extrabold font-cute text-lg shrink-0">T</span>
+              <div class="w-full">
+                <label class="block text-sm md:text-base font-bold text-slate-800 mb-1">
+                  Time-bound <span class="text-purple-600 font-medium">(언제부터 언제까지 마무리할 것인가요? - 필수)</span>
+                </label>
+                <p class="text-xs text-slate-400 mb-3">계획 시작일과 종료일을 아래 달력 버튼을 눌러 정확하게 지정해봐요.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-bold text-slate-500 mb-1.5"><i class="fa-regular fa-calendar-plus text-purple-400"></i> 목표 시작일</label>
+                    <input type="date" id="smart-t-start" onchange="syncDatesToDuration()"
+                           class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-purple-300 transition-all cursor-pointer">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold text-slate-500 mb-1.5"><i class="fa-regular fa-calendar-check text-purple-400"></i> 목표 종료일</label>
+                    <input type="date" id="smart-t-end" onchange="syncDatesToDuration()"
+                           class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-purple-300 transition-all cursor-pointer">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="mt-8 flex justify-between gap-4">
+          <button onclick="goToStep(1)" class="bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold px-5 py-3 rounded-2xl transition-all flex items-center gap-2">
+            <i class="fa-solid fa-arrow-left"></i> 이전 단계로
+          </button>
+          <button onclick="syncAndGoToStep3()" class="bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-white font-bold px-6 py-3 rounded-2xl shadow-md shadow-amber-100 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+            다음 단계로 (짝꿍과 나누기) <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ================= STEP 3: 짝꿍과 나누기 ================= -->
+    <div id="step-3" class="step-container hidden fade-in">
+      <div class="bg-white rounded-3xl p-6 md:p-8 shadow-md border border-slate-100">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-14 h-14 rounded-2xl bg-sky-100 flex items-center justify-center text-sky-500 shrink-0">
+            <i class="fa-solid fa-user-group text-2xl"></i>
+          </div>
+          <div>
+            <span class="text-sm font-black text-sky-500 tracking-wider">STEP 3. 친구와 응원 나누기</span>
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate-800 tracking-tight leading-tight">서로의 여름 목표를 공유해요</h2>
+          </div>
+        </div>
+
+        <!-- Intro Teacher Comment -->
+        <div class="bg-sky-50 rounded-2xl p-4 text-xs md:text-sm text-sky-700 mb-6 flex gap-3 items-start">
+          <span class="text-xl">👩‍🏫</span>
+          <div>
+            <strong>선생님의 속닥속닥:</strong> "목표는 혼자 마음속으로만 생각하는 것보다, 다른 사람에게 선언하고 함께 응원받을 때 달성 확률이 무려 3배나 높아진대요! 옆에 있는 짝꿍과 목표를 서로 조근조근 이야기해보고 기록해 주세요."
+          </div>
+        </div>
+
+        <div class="space-y-6">
+          <!-- 짝꿍 기본 정보 -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm md:text-base font-bold text-slate-700 mb-2">
+                👦👧 내 짝꿍의 이름은?
+              </label>
+              <input type="text" id="partner-name" placeholder="짝꿍 이름 입력" 
+                     class="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-sky-300">
+            </div>
+            <div>
+              <label class="block text-sm md:text-base font-bold text-slate-700 mb-2">
+                🎯 짝꿍이 세운 여름 목표는 무엇인가요?
+              </label>
+              <input type="text" id="partner-goal" placeholder="짝꿍의 방학 목표를 한 줄로 들어보고 적어주세요" 
+                     class="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-sky-300">
+            </div>
+          </div>
+
+          <!-- 내가 짝꿍에게 보내는 응원 한마디 -->
+          <div>
+            <label class="block text-sm md:text-base font-bold text-slate-700 mb-2 flex items-center gap-1.5">
+              💌 짝꿍에게 진심을 담아 보낼 응원 메시지 한마디!
+            </label>
+            <textarea id="partner-message" rows="3" placeholder="예: 민우야, 넌 끈기 있는 멋진 녀석이니까 매일 운동하기 약속 꼭 지킬 수 있을 거야! 나도 응원할게! 화이팅!" 
+                      class="w-full bg-slate-50 border border-slate-100 rounded-2xl p-4 text-sm focus:outline-none focus:ring-2 focus:ring-sky-300 resize-none"></textarea>
+          </div>
+        </div>
+
+        <!-- Fast Helper Message for Kids -->
+        <div class="mt-6">
+          <p class="text-xs text-slate-400 font-bold mb-2">💡 어떤 말로 응원할지 고민될 때 참고해보세요! (클릭 시 자동 적용)</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span onclick="addPartnerMessage('그 누구보다 빛나는 네 방학을 진심으로 응원해! 할 수 있어!')" class="cursor-pointer bg-slate-100 hover:bg-sky-100 hover:text-sky-700 text-slate-600 text-[11px] px-2.5 py-1 rounded-full transition-all">✨ 빛나는 방학 응원</span>
+            <span onclick="addPartnerMessage('목표 달성해서 2학기 때 더 멋진 모습으로 만나자! 화이팅!')" class="cursor-pointer bg-slate-100 hover:bg-sky-100 hover:text-sky-700 text-slate-600 text-[11px] px-2.5 py-1 rounded-full transition-all">💪 더 멋진 모습으로</span>
+            <span onclick="addPartnerMessage('작은 습관이 쌓여 큰 기적을 만드는 법! 널 끝까지 응원할게!')" class="cursor-pointer bg-slate-100 hover:bg-sky-100 hover:text-sky-700 text-slate-600 text-[11px] px-2.5 py-1 rounded-full transition-all">🌟 작은 습관의 기적</span>
+            <span onclick="addPartnerMessage('네 목표 진짜 멋지다! 우리 끝까지 포기하지 말고 같이 힘내자! 화이팅!')" class="cursor-pointer bg-slate-100 hover:bg-sky-100 hover:text-sky-700 text-slate-600 text-[11px] px-2.5 py-1 rounded-full transition-all">🔥 끝까지 함께</span>
+            <span onclick="addPartnerMessage('천 리 길도 한 걸음부터! 매일 매일 조금씩 하다 보면 꼭 이룰 수 있어!')" class="cursor-pointer bg-slate-100 hover:bg-sky-100 hover:text-sky-700 text-slate-600 text-[11px] px-2.5 py-1 rounded-full transition-all">👟 한 걸음씩 천천히</span>
+            <span onclick="addPartnerMessage('실패해도 전혀 괜찮아, 용기 있게 도전하는 네 모습 자체가 이미 완벽해!')" class="cursor-pointer bg-slate-100 hover:bg-sky-100 hover:text-sky-700 text-slate-600 text-[11px] px-2.5 py-1 rounded-full transition-all">❤️ 도전 자체가 최고</span>
+            <span onclick="addPartnerMessage('방학 동안 아프지 말고 건강하고 행복하게 보내면서 목표도 꼭 이루길 바랄게!')" class="cursor-pointer bg-slate-100 hover:bg-sky-100 hover:text-sky-700 text-slate-600 text-[11px] px-2.5 py-1 rounded-full transition-all">🍀 건강과 행복 가득</span>
+            <span onclick="addPartnerMessage('너의 숨은 끈기와 열정을 믿어! 이번 여름방학의 멋진 주인공은 바로 너야!')" class="cursor-pointer bg-slate-100 hover:bg-sky-100 hover:text-sky-700 text-slate-600 text-[11px] px-2.5 py-1 rounded-full transition-all">👑 너를 믿어</span>
+          </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="mt-8 flex justify-between gap-4">
+          <button onclick="goToStep(2)" class="bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold px-5 py-3 rounded-2xl transition-all flex items-center gap-2">
+            <i class="fa-solid fa-arrow-left"></i> 이전 단계로
+          </button>
+          <button onclick="syncAndGoToStep4()" class="bg-gradient-to-r from-sky-400 to-sky-500 hover:from-sky-500 hover:to-sky-600 text-white font-bold px-6 py-3 rounded-2xl shadow-md shadow-sky-100 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+            다음 단계로 (목표 카드 꾸미기) <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ================= STEP 4: 나의 목표 카드 완성 ================= -->
+    <div id="step-4" class="step-container hidden fade-in">
+      <div class="bg-white rounded-3xl p-6 md:p-8 shadow-md border border-slate-100">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-14 h-14 rounded-2xl bg-purple-100 flex items-center justify-center text-purple-500 shrink-0">
+            <i class="fa-solid fa-address-card text-2xl"></i>
+          </div>
+          <div>
+            <span class="text-sm font-black text-purple-500 tracking-wider">STEP 4. 목표 카드 완성</span>
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate-800 tracking-tight leading-tight">나만의 예쁜 목표 카드 발급받기</h2>
+          </div>
+        </div>
+
+        <p class="text-sm md:text-base text-slate-500 mb-6 leading-relaxed">
+          세상에 하나뿐인 나의 여름방학 목표 카드입니다. 카드를 예쁘게 꾸미고, 아래 <strong>[목표 카드 이미지로 저장]</strong> 버튼을 클릭해 스마트폰이나 컴퓨터에 보관하세요! 나중에 선생님이 예쁘게 컬러 출력하여 코팅해 줄게요! 😊
+        </p>
+
+        <!-- Input adjustments that instantly update on the card -->
+        <div class="bg-purple-50/50 rounded-2xl p-4 mb-6 border border-purple-100/50">
+          <h3 class="text-xs font-bold text-purple-700 mb-3"><i class="fa-solid fa-pen-fancy"></i> 카드 내용 바로 편집 및 디자인 선택</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+            <div>
+              <label class="block text-[11px] font-bold text-slate-500 mb-1">카드에 노출될 최종 목표</label>
+              <input type="text" id="card-final-goal" oninput="updateCardPreview()" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs focus:ring-1 focus:ring-purple-400 focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-500 mb-1">나에게 보내는 셀프 응원 한마디</label>
+              <input type="text" id="card-self-msg" oninput="updateCardPreview()" placeholder="할 수 있다! 화이팅!" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs focus:ring-1 focus:ring-purple-400 focus:outline-none">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <div>
+              <label class="block text-[11px] font-bold text-slate-500 mb-1">달성 기간 설정</label>
+              <input type="text" id="card-duration" oninput="updateCardPreview()" placeholder="방학 기간 동안" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs focus:ring-1 focus:ring-purple-400 focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-500 mb-1">카드 배경색 선택</label>
+              <select id="card-theme" onchange="changeCardTheme()" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs focus:ring-1 focus:ring-purple-400 focus:outline-none">
+                <option value="peach">🍑 복숭아 핑크</option>
+                <option value="mint">🌿 산뜻한 민트</option>
+                <option value="skyblue">🌊 시원한 바다</option>
+                <option value="yellow">🍌 귀여운 바나나</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-500 mb-1">캐릭터 아이콘</label>
+              <select id="card-char" onchange="updateCardPreview()" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs focus:ring-1 focus:ring-purple-400 focus:outline-none">
+                <option value="🐻">🐻 듬직한 곰돌이</option>
+                <option value="🐰">🐰 귀여운 토끼</option>
+                <option value="🐱">🐱 호기심쟁이 고양이</option>
+                <option value="🐹">🐹 귀염둥이 햄스터</option>
+                <option value="🦁">🦁 용감한 사자</option>
+                <option value="🦖">🦖 대장 꼬마 공룡</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-500 mb-1">나의 좌우명 스탬프</label>
+              <select id="card-stamp" onchange="updateCardPreview()" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs focus:ring-1 focus:ring-purple-400 focus:outline-none">
+                <option value="도전!">🔥 도전!</option>
+                <option value="하면 된다!">⭐ 하면 된다!</option>
+                <option value="끝까지 GO!">🏃 끝까지 GO!</option>
+                <option value="성실 보스">👑 성실 보스</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Container to be Captured (Print Quality standard size: 600px width ratio) -->
+        <div class="flex justify-center mb-8">
+          <!-- Card Outer wrapper -->
+          <div id="target-card" class="w-[350px] h-[520px] rounded-[32px] p-6 text-slate-800 flex flex-col justify-between shadow-2xl relative overflow-hidden transition-all duration-300 select-none bg-gradient-to-br from-pink-100 to-rose-200">
+            
+            <!-- Dashed Card Cutout Border Line -->
+            <div class="absolute inset-0 card-border-dashed pointer-events-none rounded-[32px]"></div>
+            
+            <!-- Top Card Header Deco -->
+            <div class="flex justify-between items-center relative z-10">
+              <span class="bg-white/70 backdrop-blur-sm text-[10px] font-extrabold px-3 py-1 rounded-full border border-pink-200/50 text-pink-600 tracking-wider font-cute">
+                ✨ MY SUMMER GOAL
+              </span>
+              <span id="preview-stamp" class="bg-rose-500 text-white text-[10px] font-black px-2.5 py-1 rounded-md rotate-12 shadow-sm font-cute">
+                🔥 도전!
+              </span>
+            </div>
+
+            <!-- Character & Title -->
+            <div class="text-center my-4 relative z-10">
+              <div id="preview-char" class="text-7xl mb-1 animate-bounce" style="animation-duration: 4s;">🐻</div>
+              <h3 class="text-2xl font-black text-slate-800 tracking-tight font-cute">
+                나의 여름방학 목표 카드
+              </h3>
+              <!-- Profile Box inside card (학번이 이름 앞으로 오도록 순서 수정) -->
+              <div class="inline-flex items-center gap-1.5 bg-white/60 backdrop-blur-sm px-3.5 py-1 rounded-full mt-1 border border-white/40 text-xs font-semibold">
+                <span id="preview-id" class="text-slate-500 font-bold">10101</span>
+                <span id="preview-name" class="font-extrabold text-pink-600">김중일</span>
+              </div>
+            </div>
+
+            <!-- Core Content Box -->
+            <div class="bg-white/85 backdrop-blur-md rounded-2xl p-4 border border-white/50 space-y-3.5 relative z-10 flex-grow flex flex-col justify-center">
+              
+              <!-- Summer Goal (가독성을 위한 글씨 크기 대폭 확대 및 굵기 강조) -->
+              <div class="text-center py-1">
+                <p class="text-[10px] font-bold text-slate-400 tracking-wide uppercase mb-0.5">My Big Goal 🎯</p>
+                <p id="preview-goal" class="text-2xl md:text-3xl font-cute font-black text-slate-800 leading-snug px-1 filter drop-shadow-sm">
+                  매일 아침 줄넘기 500개 넘게 도전하기!
+                </p>
+              </div>
+
+              <div class="border-t border-slate-100 my-0.5"></div>
+
+              <!-- Term -->
+              <div class="flex justify-between items-center px-1 text-xs">
+                <span class="text-slate-400 font-bold"><i class="fa-solid fa-calendar-days text-slate-400"></i> 달성 기간</span>
+                <span id="preview-duration" class="font-bold text-slate-700 bg-slate-100/80 px-2 py-0.5 rounded-md">8월 20일까지</span>
+              </div>
+
+              <!-- Message (가독성을 위한 글씨 크기 대폭 확대) -->
+              <div class="bg-pink-50/50 rounded-xl p-2.5 text-center border border-pink-100/30">
+                <p class="text-[9px] font-bold text-pink-400 mb-0.5"><i class="fa-solid fa-comment-heart"></i> 나에게 보낼 사랑의 주문</p>
+                <p id="preview-self-msg" class="text-pink-700 font-extrabold font-hand text-2xl md:text-3xl text-center leading-normal">
+                  포기하지 말고 무조건 완주하자! 아자아자!
+                </p>
+              </div>
+
+              <!-- Goal Achievement Check (달성 여부 체크) -->
+              <div class="bg-slate-50/70 rounded-xl py-1.5 px-3 flex justify-between items-center border border-slate-200/50">
+                <span class="text-[10px] font-bold text-slate-500"><i class="fa-solid fa-circle-check text-emerald-400"></i> 달성 체크</span>
+                <div class="flex gap-2.5 text-[10px] font-bold text-slate-700">
+                  <span class="flex items-center gap-1">
+                    <span class="w-4 h-4 rounded-md border-2 border-pink-400 bg-white inline-block"></span> 참 잘했어요!
+                  </span>
+                  <span class="flex items-center gap-1">
+                    <span class="w-4 h-4 rounded-md border-2 border-slate-300 bg-white inline-block"></span> 노력했어요!
+                  </span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Footer Logo -->
+            <div class="text-center text-[9px] text-slate-500 tracking-wider font-bold relative z-10 bg-white/30 py-1 rounded-full border border-white/20">
+              🏫 2026학년도 우리 반 긍정적 행동지원 프로그램
+            </div>
+
+            <!-- Decorative background elements -->
+            <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-yellow-200/40 rounded-full blur-2xl"></div>
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-pink-300/30 rounded-full blur-2xl"></div>
+          </div>
+        </div>
+
+        <!-- Download Action -->
+        <div class="flex flex-col items-center gap-3">
+          <button onclick="downloadGoalCard()" class="w-full sm:w-auto bg-gradient-to-r from-purple-500 via-pink-500 to-amber-500 hover:from-purple-600 hover:via-pink-600 hover:to-amber-600 text-white font-extrabold text-base px-8 py-4 rounded-3xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3">
+            <i class="fa-solid fa-download text-lg"></i> 나의 목표 카드 이미지 저장하기!
+          </button>
+          <p class="text-xs text-slate-400 text-center">
+            * 다운로드 완료 후, 갤러리나 다운로드 폴더에서 확인할 수 있어요. 인쇄 후 코팅하면 지갑에 쏙 들어가는 이쁜 보관용 카드가 돼요!
+          </p>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="mt-8 pt-6 border-t border-slate-100 flex justify-between">
+          <button onclick="goToStep(3)" class="bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold px-5 py-3 rounded-2xl transition-all flex items-center gap-2">
+            <i class="fa-solid fa-arrow-left"></i> 이전 단계로
+          </button>
+          
+          <button onclick="finishClassProgram()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3 rounded-2xl transition-all flex items-center gap-2">
+            <i class="fa-solid fa-circle-check"></i> 활동 최종 완료!
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Class Teacher Banner (Footer) -->
+  <footer class="bg-slate-800 text-slate-300 py-8 px-6 text-center border-t border-slate-700">
+    <div class="max-w-3xl mx-auto space-y-2.5">
+      <p class="font-extrabold text-base md:text-lg text-slate-100 tracking-wide">💡 긍정적 행동지원(Positive Behavior Support, PBS) 프로그램</p>
+      <p class="text-xs md:text-sm text-slate-400 leading-relaxed max-w-2xl mx-auto break-keep font-medium">구체적인 행동 목표를 세우고 주변 친구들과 공유하여 응원을 주고받으면 긍정적인 자아 개념 형성에 큰 도움이 됩니다.</p>
+      <!-- 교사용 구글 스프레드시트 연동 톱니바퀴 (시각적 히든 기능) -->
+      <button onclick="openTeacherConfig()" class="text-slate-600 hover:text-slate-400 transition-colors mt-4 text-xs flex items-center justify-center gap-1 mx-auto">
+        <i class="fa-solid fa-gear"></i> 교사 전용 데이터 연동 및 추출 설정
+      </button>
+    </div>
+  </footer>
+
+  <!-- Script for App Interaction & Image Generation -->
+  <script>
+    // State storage for inputs
+    let currentStep = 1;
+
+    // Default Card Themes styling mapping
+    const themes = {
+      peach: {
+        bg: "bg-gradient-to-br from-pink-100 to-rose-200",
+        border: "stroke-%23FBCFE8FF", // #FBCFE8
+        textColor: "text-pink-600",
+        badgeBg: "bg-rose-500",
+        selfMsgBg: "bg-pink-50/50",
+        selfMsgText: "text-pink-700"
+      },
+      mint: {
+        bg: "bg-gradient-to-br from-emerald-50 to-teal-100",
+        border: "stroke-%23A7F3D0FF", // #A7F3D0
+        textColor: "text-emerald-600",
+        badgeBg: "bg-emerald-500",
+        selfMsgBg: "bg-emerald-50/50",
+        selfMsgText: "text-emerald-700"
+      },
+      skyblue: {
+        bg: "bg-gradient-to-br from-sky-100 to-blue-200",
+        border: "stroke-%23BAE6FDFF", // #BAE6FD
+        textColor: "text-sky-600",
+        badgeBg: "bg-sky-500",
+        selfMsgBg: "bg-sky-50/50",
+        selfMsgText: "text-sky-700"
+      },
+      yellow: {
+        bg: "bg-gradient-to-br from-amber-50 to-yellow-100",
+        border: "stroke-%23FEF08AFF", // #FEF08A
+        textColor: "text-amber-600",
+        badgeBg: "bg-amber-500",
+        selfMsgBg: "bg-amber-50/50",
+        selfMsgText: "text-amber-700"
+      }
+    };
+
+    // Automatically synchronize chosen calendar dates into formatted period string
+    function syncDatesToDuration() {
+      const startVal = document.getElementById('smart-t-start').value;
+      const endVal = document.getElementById('smart-t-end').value;
+      let durationText = "";
+      
+      if (startVal && endVal) {
+        const start = new Date(startVal);
+        const end = new Date(endVal);
+        durationText = `${start.getMonth() + 1}/${start.getDate()} ~ ${end.getMonth() + 1}/${end.getDate()}`;
+      } else if (endVal) {
+        const end = new Date(endVal);
+        durationText = `${end.getMonth() + 1}월 ${end.getDate()}일까지`;
+      } else if (startVal) {
+        const start = new Date(startVal);
+        durationText = `${start.getMonth() + 1}월 ${start.getDate()}일 시작`;
+      }
+      
+      if (durationText) {
+        document.getElementById('card-duration').value = durationText;
+        updateCardPreview();
+      }
+    }
+
+    // Auto-fill values check when navigating steps to make sure it functions properly
+    function goToStep(stepNum) {
+      if (stepNum > 1) {
+        // Validation to prevent skip without student profile
+        const sId = document.getElementById('student-id').value.trim();
+        const sName = document.getElementById('student-name').value.trim();
+        if (!sId || !sName) {
+          Swal.fire({
+            icon: 'warning',
+            title: '잠깐만요! 🧑‍🏫',
+            text: '활동을 진행하기 전 상단의 [학번]과 [이름]을 먼저 완성해 주세요.',
+            confirmButtonText: '확인',
+            confirmButtonColor: '#F43F5E'
+          });
+          return;
+        }
+      }
+
+      // Hide all steps
+      document.querySelectorAll('.step-container').forEach(el => {
+        el.classList.add('hidden');
+      });
+
+      // Show requested step
+      document.getElementById(`step-${stepNum}`).classList.remove('hidden');
+
+      // Update Navigation Buttons & Progress UI
+      currentStep = stepNum;
+      updateNavigationUI();
+      
+      // Auto Sync Preview when switching to step 4
+      if (stepNum === 4) {
+        syncInputsToCard();
+      }
+
+      // Smooth scroll back to step container top
+      window.scrollTo({ top: 120, behavior: 'smooth' });
+    }
+
+    // Step Sync Functions
+    function syncAndGoToStep3() {
+      // Get Values from SMART inputs
+      const s = document.getElementById('smart-s').value.trim();
+      const m = document.getElementById('smart-m').value.trim();
+      const a = document.getElementById('smart-a').value.trim();
+      const r = document.getElementById('smart-r').value.trim();
+      const tStart = document.getElementById('smart-t-start').value;
+      const tEnd = document.getElementById('smart-t-end').value;
+
+      // Enforce strict SMART validation (All fields must be completed)
+      if (!s || !m || !a || !r || !tStart || !tEnd) {
+        Swal.fire({
+          icon: 'warning',
+          title: '앗, 계획이 완성되지 않았어요! ✍️',
+          text: '성공률이 높은 똑똑한 방학 계획을 위해, SMART(S, M, A, R, T)의 다섯 항목을 모두 빠짐없이 입력해주세요!',
+          confirmButtonColor: '#F59E0B'
+        });
+        return;
+      }
+
+      // Auto update some preview defaults
+      document.getElementById('card-final-goal').value = s;
+      
+      // Calculate duration text from datepicker values
+      syncDatesToDuration();
+      
+      goToStep(3);
+    }
+
+    function syncAndGoToStep4() {
+      const partnerName = document.getElementById('partner-name').value.trim();
+      const partnerGoal = document.getElementById('partner-goal').value.trim();
+      const partnerMsg = document.getElementById('partner-message').value.trim();
+
+      if (!partnerName || !partnerGoal || !partnerMsg) {
+        Swal.fire({
+          title: '짝꿍 정보가 비어있어요!',
+          text: '짝꿍과 재미있게 도란도란 이야기를 나누고 마저 다 작성해볼까요?',
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonText: '아하, 작성할게요!',
+          cancelButtonText: '그냥 넘어가기',
+          confirmButtonColor: '#0EA5E9',
+          cancelButtonColor: '#94A3B8'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Stay
+          } else {
+            goToStep(4);
+          }
+        });
+      } else {
+        goToStep(4);
+      }
+    }
+
+    // Keyword Adding Utility (Step 1 Helper)
+    function addKeyword(type, keywordText) {
+      const targetArea = type === 'good' ? document.getElementById('step1-good') : document.getElementById('step1-bad');
+      if (targetArea.value) {
+        targetArea.value += ', ' + keywordText;
+      } else {
+        targetArea.value = keywordText;
+      }
+      
+      // Visual feedback toast
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true
+      });
+      Toast.fire({
+        icon: 'success',
+        title: '키워드가 입력란에 추가되었어요!'
+      });
+    }
+
+    // Message Adding Utility (Step 3 Helper)
+    function addPartnerMessage(messageText) {
+      document.getElementById('partner-message').value = messageText;
+    }
+
+    // Navigation Color/State Updates
+    function updateNavigationUI() {
+      // Progress percentage
+      let percent = 20;
+      if (currentStep === 2) percent = 50;
+      if (currentStep === 3) percent = 75;
+      if (currentStep === 4) percent = 100;
+
+      document.getElementById('progress-bar').style.width = `${percent}%`;
+      document.getElementById('progress-text').innerText = `진행률 ${percent}%`;
+
+      // Button styles
+      for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById(`btn-nav-${i}`);
+        if (i === currentStep) {
+          btn.className = "text-center py-2 px-1 rounded-xl text-xs font-bold bg-pink-100 text-pink-700 border-2 border-pink-300 transition-all";
+        } else if (i < currentStep) {
+          btn.className = "text-center py-2 px-1 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-600 border border-emerald-200 transition-all";
+        } else {
+          btn.className = "text-center py-2 px-1 rounded-xl text-xs font-bold bg-slate-100 text-slate-400 transition-all";
+        }
+      }
+    }
+
+    // Sync all form inputs to Card Preview layout
+    function syncInputsToCard() {
+      const studentId = document.getElementById('student-id').value;
+      const studentName = document.getElementById('student-name').value;
+      
+      // Default goal mapping
+      let goalText = document.getElementById('card-final-goal').value;
+      if (!goalText) {
+        goalText = document.getElementById('smart-s').value || "나의 여름방학 목표 세우기!";
+        document.getElementById('card-final-goal').value = goalText;
+      }
+
+      // Default duration mapping
+      let durationText = document.getElementById('card-duration').value;
+      if (!durationText) {
+        const startVal = document.getElementById('smart-t-start').value;
+        const endVal = document.getElementById('smart-t-end').value;
+        if (startVal && endVal) {
+          const start = new Date(startVal);
+          const end = new Date(endVal);
+          durationText = `${start.getMonth() + 1}/${start.getDate()} ~ ${end.getMonth() + 1}/${end.getDate()}`;
+        } else if (endVal) {
+          const end = new Date(endVal);
+          durationText = `${end.getMonth() + 1}월 ${end.getDate()}일까지`;
+        } else {
+          durationText = "방학 기간 동안";
+        }
+        document.getElementById('card-duration').value = durationText;
+      }
+
+      // Default message mapping
+      let selfMsgText = document.getElementById('card-self-msg').value;
+      if (!selfMsgText) {
+        selfMsgText = document.getElementById('smart-r').value ? "꼭 실천하자! " + document.getElementById('smart-r').value.substring(0, 15) + "..." : "나와의 약속, 반드시 지키겠어!";
+        document.getElementById('card-self-msg').value = selfMsgText;
+      }
+
+      updateCardPreview();
+    }
+
+    // Update real-time preview of the HTML Card Element
+    // 학번이 이름 앞쪽으로 표시되도록 조립 방식 대폭 개선
+    function updateCardPreview() {
+      const name = document.getElementById('student-name').value || "홍길동";
+      const sId = document.getElementById('student-id').value || "10101";
+      const goal = document.getElementById('card-final-goal').value || "구체적인 목표를 입력해 주세요.";
+      const duration = document.getElementById('card-duration').value || "여름 방학 기한";
+      const selfMsg = document.getElementById('card-self-msg').value || "나는 할 수 있어!";
+      
+      const char = document.getElementById('card-char').value;
+      const stamp = document.getElementById('card-stamp').value;
+
+      document.getElementById('preview-name').innerText = name;
+      document.getElementById('preview-id').innerText = sId;
+      document.getElementById('preview-goal').innerText = goal;
+      document.getElementById('preview-duration').innerText = duration;
+      document.getElementById('preview-self-msg').innerText = selfMsg;
+      document.getElementById('preview-char').innerText = char;
+      document.getElementById('preview-stamp').innerText = stamp;
+    }
+
+    // Change Card theme classes dynamically
+    function changeCardTheme() {
+      const themeKey = document.getElementById('card-theme').value;
+      const theme = themes[themeKey];
+      const card = document.getElementById('target-card');
+
+      // Reset existing color gradients & replace
+      card.className = `w-[350px] h-[520px] rounded-[32px] p-6 text-slate-800 flex flex-col justify-between shadow-2xl relative overflow-hidden transition-all duration-300 select-none ${theme.bg}`;
+      
+      // Replace outer dash svg border
+      const borderDiv = card.querySelector('.card-border-dashed');
+      borderDiv.style.backgroundImage = `url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='24' ry='24' stroke='${theme.border.replace('%23', '#')}' stroke-width='4' stroke-dasharray='10%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e")`;
+
+      // Badge bg classes updating
+      const stampBadge = document.getElementById('preview-stamp');
+      stampBadge.className = `${theme.badgeBg} text-white text-[10px] font-black px-2.5 py-1 rounded-md rotate-12 shadow-sm font-cute`;
+
+      const categoryText = card.querySelector('.font-cute.tracking-wider');
+      categoryText.className = `bg-white/70 backdrop-blur-sm text-[10px] font-extrabold px-3 py-1 rounded-full border border-pink-200/50 ${theme.textColor} tracking-wider font-cute`;
+
+      const previewName = document.getElementById('preview-name');
+      previewName.className = `font-bold ${theme.textColor}`;
+
+      const messageBox = card.querySelector('.text-center.border');
+      messageBox.className = `${theme.selfMsgBg} rounded-xl p-2.5 text-center border border-pink-100/30`;
+
+      const msgTitle = messageBox.querySelector('p');
+      msgTitle.className = `text-[9px] font-bold ${theme.textColor} mb-0.5`;
+
+      const msgContent = document.getElementById('preview-self-msg');
+      msgContent.className = `${theme.selfMsgText} font-bold font-hand text-2xl text-center leading-normal`;
+    }
+
+    // Download Card as Image using html2canvas
+    function downloadGoalCard() {
+      const sName = document.getElementById('student-name').value.trim() || '나';
+      const cardEl = document.getElementById('target-card');
+
+      Swal.fire({
+        title: '목표 카드 저장 중...',
+        html: '선생님이 코팅해줄 예쁜 카드를 만들고 있어요! 잠시만 기다려 주세요.',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+
+      // Execute html2canvas capture with settings to maximize output quality
+      html2canvas(cardEl, {
+        scale: 3, // Increase scale for high print resolution (3x)
+        backgroundColor: null, // Keeps background rounded corners transparent if needed
+        useCORS: true,
+        logging: false
+      }).then(canvas => {
+        const image = canvas.toDataURL("image/png");
+        const link = document.createElement('a');
+        link.download = `여름방학목표카드_${sName}.png`;
+        link.href = image;
+        link.click();
+        
+        Swal.fire({
+          icon: 'success',
+          title: '다운로드 성공! 🎉',
+          html: `<strong>${sName}</strong>의 여름 목표 카드가 저장되었습니다!<br><br>다운로드한 이미지 파일을 단체 카톡방에 제출하거나 패들렛에 업로드하고, 인쇄 버전을 받기 위해 잘 보관하세요.`,
+          confirmButtonColor: '#10B981'
+        });
+      }).catch(err => {
+        console.error(err);
+        Swal.fire({
+          icon: 'error',
+          title: '앗, 저장 실패',
+          text: '브라우저 호환성 문제로 이미지를 캡처할 수 없습니다. 캡처 기능을 다시 실행해 주세요.',
+          confirmButtonColor: '#EF4444'
+        });
+      });
+    }
+
+    // End of Session Celebration Dialog (구글 시트 연동 전송 로직 포함)
+    function finishClassProgram() {
+      const sId = document.getElementById('student-id').value.trim();
+      const sName = document.getElementById('student-name').value.trim();
+      const step1Good = document.getElementById('step1-good').value.trim();
+      const step1Bad = document.getElementById('step1-bad').value.trim();
+      const s = document.getElementById('smart-s').value.trim();
+      const m = document.getElementById('smart-m').value.trim();
+      const a = document.getElementById('smart-a').value.trim();
+      const r = document.getElementById('smart-r').value.trim();
+      const tStart = document.getElementById('smart-t-start').value;
+      const tEnd = document.getElementById('smart-t-end').value;
+      const partnerName = document.getElementById('partner-name').value.trim();
+      const partnerGoal = document.getElementById('partner-goal').value.trim();
+      const partnerMsg = document.getElementById('partner-message').value.trim();
+      const finalGoal = document.getElementById('card-final-goal').value.trim();
+      const finalSelfMsg = document.getElementById('card-self-msg').value.trim();
+
+      // 지정된 구글 스프레드시트 앱스 스크립트 웹앱 주소로 기본값 지정
+      const sheetUrl = localStorage.getItem('teacher_sheet_url') || "https://script.google.com/macros/s/AKfycbwxphwQNwWJC7c9885QwVDaB9ED87rCJtqmfttAb3Zqsw65-6knAws0aimLaUOsYLVv/exec";
+
+      Swal.fire({
+        title: '구글 스프레드시트에 제출 중...',
+        text: '선생님의 온라인 서류철에 데이터를 안전하게 기록하고 있습니다.',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+
+      const payload = {
+        studentId: sId,
+        studentName: sName,
+        step1Good: step1Good,
+        step1Bad: step1Bad,
+        smartS: s,
+        smartM: m,
+        smartA: a,
+        smartR: r,
+        smartTStart: tStart,
+        smartTEnd: tEnd,
+        partnerName: partnerName,
+        partnerGoal: partnerGoal,
+        partnerMessage: partnerMsg,
+        cardFinalGoal: finalGoal,
+        cardSelfMsg: finalSelfMsg
+      };
+
+      fetch(sheetUrl, {
+        method: 'POST',
+        mode: 'no-cors', // Avoid complex preflight CORS issues in classroom
+        cache: 'no-cache',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(() => {
+        showCompletionSuccess(sName);
+      })
+      .catch(err => {
+        console.error(err);
+        Swal.fire({
+          icon: 'error',
+          title: '구글 전송 지연 발생',
+          text: '네트워크 연결이 불안정합니다. 대신 [텍스트 클립보드 복사] 버튼을 통해 데이터를 제출해 주세요!',
+          confirmButtonText: '확인',
+          confirmButtonColor: '#EF4444'
+        }).then(() => {
+          showCompletionSuccess(sName, true);
+        });
+      });
+    }
+
+    // Success Celebration Modal
+    function showCompletionSuccess(sName, showClipboardBtn = false) {
+      let htmlContent = `1학기를 돌아보고 알찬 방학 목표를 설계한<br>우리 <strong>${sName}</strong> 학생을 담임쌤이 진심으로 격려해요! <br><br>목표를 꼭 마음속에 심어두고 행복하고 긍정적인 여름방학을 만들어 봐요.`;
+      
+      if (showClipboardBtn) {
+        htmlContent += `<br><br><span class="text-xs text-rose-500 font-bold">⚠️ 선생님 가이드:</span><br><span class="text-xs text-slate-500">데이터 전송이 실패했습니다. 아래 보라색 복사 버튼을 눌러 교사 메일/단톡방에 텍스트를 복사해서 전송해 주세요.</span>`;
+      }
+
+      Swal.fire({
+        icon: 'success',
+        title: '활동 최종 완료! 👏',
+        html: htmlContent,
+        width: 500,
+        padding: '2.5em',
+        color: '#1E293B',
+        background: '#fff',
+        confirmButtonColor: '#10B981',
+        confirmButtonText: '활동 마무리하기',
+        showCancelButton: showClipboardBtn,
+        cancelButtonText: '📋 텍스트 데이터 복사',
+        cancelButtonColor: '#8B5CF6'
+      }).then((result) => {
+        // If copy to clipboard is triggered
+        if (result.dismiss === Swal.DismissReason.cancel) {
+          copyStudentDataToClipboard();
+        }
+      });
+    }
+
+    // Teachers setup modal
+    function openTeacherConfig() {
+      const currentUrl = localStorage.getItem('teacher_sheet_url') || "https://script.google.com/macros/s/AKfycbwxphwQNwWJC7c9885QwVDaB9ED87rCJtqmfttAb3Zqsw65-6knAws0aimLaUOsYLVv/exec";
+
+      Swal.fire({
+        title: '⚙️ 교사용 구글 연동 및 데이터 추출',
+        html: `
+          <div class="text-left space-y-4 text-xs text-slate-600">
+            <p class="font-bold text-slate-800 text-sm">1. 구글 스프레드시트 실시간 제출 연동</p>
+            <p>Google Apps Script의 웹앱(Web App) 배포 URL을 아래에 등록하시면, 학생들이 '최종 완료'를 누를 때 데이터가 시트에 자동 누적됩니다.</p>
+            <input type="text" id="swal-sheet-url" value="${currentUrl}" placeholder="https://script.google.com/macros/s/.../exec" 
+                   class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-xs focus:ring-1 focus:ring-purple-400 focus:outline-none">
+            
+            <div class="border-t border-slate-200 my-4"></div>
+            
+            <p class="font-bold text-slate-800 text-sm">2. 교사용 데이터 오프라인 즉시 다운로드 (CSV)</p>
+            <p>네트워크 사정이 안 좋거나 앱스스크립트 연동이 어려울 때는, 현재 학생이 이 브라우저에 입력한 데이터를 CSV 파일로 즉시 다운받아 관리할 수 있습니다.</p>
+            <button type="button" onclick="exportDataAsCSV()" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg transition-colors flex items-center justify-center gap-1.5 mx-auto">
+              <i class="fa-solid fa-file-csv"></i> 현재 학생 데이터 CSV 저장
+            </button>
+          </div>
+        `,
+        showCancelButton: true,
+        confirmButtonText: '구글 시트 URL 저장',
+        cancelButtonText: '닫기',
+        confirmButtonColor: '#8B5CF6',
+        cancelButtonColor: '#94A3B8',
+        focusConfirm: false,
+        preConfirm: () => {
+          return document.getElementById('swal-sheet-url').value.trim();
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const inputUrl = result.value;
+          localStorage.setItem('teacher_sheet_url', inputUrl);
+          Swal.fire({
+            icon: 'success',
+            title: '구글 웹앱 URL 저장 완료!',
+            text: inputUrl ? '이제 학생들의 활동 결과가 입력하신 구글 스프레드시트로 전송됩니다.' : '기본 지정된 스프레드시트로 연동이 초기화되었습니다.',
+            confirmButtonColor: '#10B981'
+          });
+        }
+      });
+    }
+
+    // Helper to copy current student's data as tabbed string
+    function copyStudentDataToClipboard() {
+      const sId = document.getElementById('student-id').value;
+      const sName = document.getElementById('student-name').value;
+      const good = document.getElementById('step1-good').value;
+      const bad = document.getElementById('step1-bad').value;
+      const s = document.getElementById('smart-s').value;
+      const m = document.getElementById('smart-m').value;
+      const a = document.getElementById('smart-a').value;
+      const r = document.getElementById('smart-r').value;
+      const term = document.getElementById('card-duration').value;
+      const finalGoal = document.getElementById('card-final-goal').value;
+      const selfMsg = document.getElementById('card-self-msg').value;
+
+      const formattedText = `[학번]: ${sId}\n[이름]: ${sName}\n[잘한 것]: ${good}\n[아쉬운 것]: ${bad}\n[S]: ${s}\n[M]: ${m}\n[A]: ${a}\n[R]: ${r}\n[T (기간)]: ${term}\n[최종 목표]: ${finalGoal}\n[나에게 주는 한마디]: ${selfMsg}`;
+
+      // Clipboard fallback copy method for preview iframes
+      const tempTextArea = document.createElement("textarea");
+      tempTextArea.value = formattedText;
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempTextArea);
+
+      Swal.fire({
+        icon: 'success',
+        title: '클립보드 복사 성공! 📋',
+        text: '복사된 데이터를 단톡방이나 교사용 메일, 메모장에 붙여넣기(Ctrl+V) 하시면 됩니다.',
+        confirmButtonColor: '#10B981'
+      });
+    }
+
+    // Helper to download student's data as CSV file
+    function exportDataAsCSV() {
+      const sId = document.getElementById('student-id').value.trim() || "학번";
+      const sName = document.getElementById('student-name').value.trim() || "이름";
+      const good = document.getElementById('step1-good').value.trim();
+      const bad = document.getElementById('step1-bad').value.trim();
+      const s = document.getElementById('smart-s').value.trim();
+      const m = document.getElementById('smart-m').value.trim();
+      const a = document.getElementById('smart-a').value.trim();
+      const r = document.getElementById('smart-r').value.trim();
+      const term = document.getElementById('card-duration').value.trim();
+      const finalGoal = document.getElementById('card-final-goal').value.trim();
+      const selfMsg = document.getElementById('card-self-msg').value.trim();
+
+      const headers = ["학번", "이름", "잘한 점", "아쉬운 점", "S(구체적)", "M(측정)", "A(달성)", "R(관련)", "T(기간)", "카드 최종목표", "셀프응원"];
+      const row = [sId, sName, good, bad, s, m, a, r, term, finalGoal, selfMsg];
+
+      // Format CSV string
+      const csvContent = "\uFEFF" + [
+        headers.map(val => `"${val.replace(/"/g, '""')}"`).join(","),
+        row.map(val => `"${val.replace(/"/g, '""')}"`).join(",")
+      ].join("\n");
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute("download", `목표설계_데이터_${sId}_${sName}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+</body>
+</html>
