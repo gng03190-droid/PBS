@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -18,6 +18,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Gothic+Coding&family=Nunito:wght@400;700;900&family=Nanum+Pen+Script&family=Gowun+Dodum&display=swap" rel="stylesheet">
 
   <style>
+    /* Google Fonts embedded inside style sheet to guarantee seamless html2canvas rendering on mobile devices */
+    @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Pen+Script&family=Gowun+Dodum&display=swap');
+
     body {
       font-family: 'Gowun Dodum', sans-serif;
       background-color: #f7f9fc;
@@ -53,7 +56,7 @@
     
     <div class="max-w-3xl mx-auto relative z-10">
       <span class="inline-block bg-white/90 text-pink-600 font-extrabold px-6 py-2 rounded-full text-sm md:text-base mb-3 shadow-md font-cute tracking-wide border border-pink-100">
-        🌞 담임쌤과 함께하는 긍정적 행동지원 프로그램
+        🏫 대치중학교 긍정적 행동지원 프로그램
       </span>
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-slate-800 tracking-tight font-cute mb-3">
         나의 여름 목표 설계도 🗺️
@@ -468,7 +471,7 @@
               <span class="bg-white/70 backdrop-blur-sm text-[10px] font-extrabold px-3 py-1 rounded-full border border-pink-200/50 text-pink-600 tracking-wider font-cute">
                 ✨ MY SUMMER GOAL
               </span>
-              <span id="preview-stamp" class="bg-rose-500 text-white text-[10px] font-black px-2.5 py-1 rounded-md rotate-12 shadow-sm font-cute">
+              <span id="preview-stamp" class="bg-rose-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-md rotate-12 shadow-sm font-cute">
                 🔥 도전!
               </span>
             </div>
@@ -476,23 +479,23 @@
             <!-- Character & Title -->
             <div class="text-center my-4 relative z-10">
               <div id="preview-char" class="text-7xl mb-1 animate-bounce" style="animation-duration: 4s;">🐻</div>
-              <h3 class="text-2xl font-black text-slate-800 tracking-tight font-cute">
+              <h3 class="text-2xl font-bold text-slate-800 font-cute">
                 나의 여름방학 목표 카드
               </h3>
-              <!-- Profile Box inside card (학번이 이름 앞으로 오도록 순서 수정) -->
-              <div class="inline-flex items-center gap-1.5 bg-white/60 backdrop-blur-sm px-3.5 py-1 rounded-full mt-1 border border-white/40 text-xs font-semibold">
+              <!-- Profile Box inside card (Solid bg instead of blur to prevent html2canvas iOS black-box rendering bug) -->
+              <div class="inline-flex items-center gap-1.5 bg-white/95 px-3.5 py-1 rounded-full mt-1 border border-white/50 text-xs font-semibold shadow-sm">
                 <span id="preview-id" class="text-slate-500 font-bold">10101</span>
-                <span id="preview-name" class="font-extrabold text-pink-600">김중일</span>
+                <span id="preview-name" class="font-bold text-pink-600">김중일</span>
               </div>
             </div>
 
             <!-- Core Content Box -->
-            <div class="bg-white/85 backdrop-blur-md rounded-2xl p-4 border border-white/50 space-y-3.5 relative z-10 flex-grow flex flex-col justify-center">
+            <div class="bg-white/85 rounded-2xl p-4 border border-white/50 space-y-3.5 relative z-10 flex-grow flex flex-col justify-center">
               
-              <!-- Summer Goal (가독성을 위한 글씨 크기 대폭 확대 및 굵기 강조) -->
+              <!-- Summer Goal (Letter-spacing and Word-break optimized to prevent iOS split Jamo rendering bug) -->
               <div class="text-center py-1">
                 <p class="text-[10px] font-bold text-slate-400 tracking-wide uppercase mb-0.5">My Big Goal 🎯</p>
-                <p id="preview-goal" class="text-2xl md:text-3xl font-cute font-black text-slate-800 leading-snug px-1 filter drop-shadow-sm">
+                <p id="preview-goal" class="text-3xl font-cute font-bold text-slate-800 leading-snug px-1" style="letter-spacing: 0px !important; word-break: keep-all;">
                   매일 아침 줄넘기 500개 넘게 도전하기!
                 </p>
               </div>
@@ -505,23 +508,23 @@
                 <span id="preview-duration" class="font-bold text-slate-700 bg-slate-100/80 px-2 py-0.5 rounded-md">8월 20일까지</span>
               </div>
 
-              <!-- Message (가독성을 위한 글씨 크기 대폭 확대) -->
+              <!-- Message (Font weights mapped to exact Google Font spec to prevent simulated bold Jamo separation bug) -->
               <div class="bg-pink-50/50 rounded-xl p-2.5 text-center border border-pink-100/30">
                 <p class="text-[9px] font-bold text-pink-400 mb-0.5"><i class="fa-solid fa-comment-heart"></i> 나에게 보낼 사랑의 주문</p>
-                <p id="preview-self-msg" class="text-pink-700 font-extrabold font-hand text-2xl md:text-3xl text-center leading-normal">
+                <p id="preview-self-msg" class="text-pink-700 font-normal font-hand text-3xl md:text-4xl text-center leading-normal" style="letter-spacing: 0px !important; word-break: keep-all;">
                   포기하지 말고 무조건 완주하자! 아자아자!
                 </p>
               </div>
 
-              <!-- Goal Achievement Check (달성 여부 체크) -->
-              <div class="bg-slate-50/70 rounded-xl py-1.5 px-3 flex justify-between items-center border border-slate-200/50">
-                <span class="text-[10px] font-bold text-slate-500"><i class="fa-solid fa-circle-check text-emerald-400"></i> 달성 체크</span>
-                <div class="flex gap-2.5 text-[10px] font-bold text-slate-700">
-                  <span class="flex items-center gap-1">
-                    <span class="w-4 h-4 rounded-md border-2 border-pink-400 bg-white inline-block"></span> 참 잘했어요!
+              <!-- Goal Achievement Check (Prevent text-wrapping using whitespace-nowrap and flex shrink-0) -->
+              <div class="bg-slate-50/80 rounded-xl py-2 px-3 flex justify-between items-center border border-slate-200/50 whitespace-nowrap overflow-hidden shrink-0">
+                <span class="text-[10px] font-bold text-slate-500 shrink-0"><i class="fa-solid fa-circle-check text-emerald-400"></i> 달성 체크</span>
+                <div class="flex gap-2 text-[10px] font-bold text-slate-700 shrink-0">
+                  <span class="flex items-center gap-1 shrink-0">
+                    <span class="w-3.5 h-3.5 rounded border border-pink-400 bg-white inline-block shrink-0"></span> 참 잘했어요!
                   </span>
-                  <span class="flex items-center gap-1">
-                    <span class="w-4 h-4 rounded-md border-2 border-slate-300 bg-white inline-block"></span> 노력했어요!
+                  <span class="flex items-center gap-1 shrink-0">
+                    <span class="w-3.5 h-3.5 rounded border border-slate-300 bg-white inline-block shrink-0"></span> 노력했어요!
                   </span>
                 </div>
               </div>
@@ -530,7 +533,7 @@
 
             <!-- Footer Logo -->
             <div class="text-center text-[9px] text-slate-500 tracking-wider font-bold relative z-10 bg-white/30 py-1 rounded-full border border-white/20">
-              🏫 2026학년도 우리 반 긍정적 행동지원 프로그램
+              🏫 대치중학교 긍정적 행동지원 프로그램
             </div>
 
             <!-- Decorative background elements -->
@@ -571,7 +574,7 @@
       <p class="text-xs md:text-sm text-slate-400 leading-relaxed max-w-2xl mx-auto break-keep font-medium">구체적인 행동 목표를 세우고 주변 친구들과 공유하여 응원을 주고받으면 긍정적인 자아 개념 형성에 큰 도움이 됩니다.</p>
       <!-- 교사용 구글 스프레드시트 연동 톱니바퀴 (시각적 히든 기능) -->
       <button onclick="openTeacherConfig()" class="text-slate-600 hover:text-slate-400 transition-colors mt-4 text-xs flex items-center justify-center gap-1 mx-auto">
-        <i class="fa-solid fa-gear"></i> 교사 전용 데이터 연동 및 추출 설정
+        <i class="fa-solid fa-gear"></i> 대치중학교 교사 전용 설정
       </button>
     </div>
   </footer>
@@ -883,7 +886,7 @@
       msgContent.className = `${theme.selfMsgText} font-bold font-hand text-2xl text-center leading-normal`;
     }
 
-    // Download Card as Image using html2canvas
+    // Download Card as Image using html2canvas (Added document.fonts.ready for stable font rendering on iOS)
     function downloadGoalCard() {
       const sName = document.getElementById('student-name').value.trim() || '나';
       const cardEl = document.getElementById('target-card');
@@ -897,32 +900,36 @@
         }
       });
 
-      // Execute html2canvas capture with settings to maximize output quality
-      html2canvas(cardEl, {
-        scale: 3, // Increase scale for high print resolution (3x)
-        backgroundColor: null, // Keeps background rounded corners transparent if needed
-        useCORS: true,
-        logging: false
-      }).then(canvas => {
-        const image = canvas.toDataURL("image/png");
-        const link = document.createElement('a');
-        link.download = `여름방학목표카드_${sName}.png`;
-        link.href = image;
-        link.click();
-        
-        Swal.fire({
-          icon: 'success',
-          title: '다운로드 성공! 🎉',
-          html: `<strong>${sName}</strong>의 여름 목표 카드가 저장되었습니다!<br><br>다운로드한 이미지 파일을 단체 카톡방에 제출하거나 패들렛에 업로드하고, 인쇄 버전을 받기 위해 잘 보관하세요.`,
-          confirmButtonColor: '#10B981'
-        });
-      }).catch(err => {
-        console.error(err);
-        Swal.fire({
-          icon: 'error',
-          title: '앗, 저장 실패',
-          text: '브라우저 호환성 문제로 이미지를 캡처할 수 없습니다. 캡처 기능을 다시 실행해 주세요.',
-          confirmButtonColor: '#EF4444'
+      // Ensure that custom web fonts are fully loaded before rendering with html2canvas
+      document.fonts.ready.then(() => {
+        html2canvas(cardEl, {
+          scale: 3, // Increase scale for high print resolution (3x)
+          backgroundColor: null,
+          useCORS: true,
+          logging: false,
+          allowTaint: false,
+          letterRendering: true
+        }).then(canvas => {
+          const image = canvas.toDataURL("image/png");
+          const link = document.createElement('a');
+          link.download = `여름방학목표카드_${sName}.png`;
+          link.href = image;
+          link.click();
+          
+          Swal.fire({
+            icon: 'success',
+            title: '다운로드 성공! 🎉',
+            html: `<strong>${sName}</strong>의 여름 목표 카드가 저장되었습니다!<br><br>다운로드한 이미지 파일을 단체 카톡방에 제출하거나 패들렛에 업로드하고, 인쇄 버전을 받기 위해 잘 보관하세요.`,
+            confirmButtonColor: '#10B981'
+          });
+        }).catch(err => {
+          console.error(err);
+          Swal.fire({
+            icon: 'error',
+            title: '앗, 저장 실패',
+            text: '이미지를 캡처할 수 없습니다. 다시 실행해 주세요.',
+            confirmButtonColor: '#EF4444'
+          });
         });
       });
     }
@@ -1003,7 +1010,7 @@
 
     // Success Celebration Modal
     function showCompletionSuccess(sName, showClipboardBtn = false) {
-      let htmlContent = `1학기를 돌아보고 알찬 방학 목표를 설계한<br>우리 <strong>${sName}</strong> 학생을 담임쌤이 진심으로 격려해요! <br><br>목표를 꼭 마음속에 심어두고 행복하고 긍정적인 여름방학을 만들어 봐요.`;
+      let htmlContent = `1학기를 돌아보고 알찬 방학 목표를 설계한<br>우리 대치중학교 <strong>${sName}</strong> 학생을 담임쌤이 진심으로 격려해요! <br><br>목표를 꼭 마음속에 심어두고 행복하고 긍정적인 여름방학을 만들어 봐요.`;
       
       if (showClipboardBtn) {
         htmlContent += `<br><br><span class="text-xs text-rose-500 font-bold">⚠️ 선생님 가이드:</span><br><span class="text-xs text-slate-500">데이터 전송이 실패했습니다. 아래 보라색 복사 버튼을 눌러 교사 메일/단톡방에 텍스트를 복사해서 전송해 주세요.</span>`;
